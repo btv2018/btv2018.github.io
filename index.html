@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev/tips by btv2018</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/btv2018">View On GitHub</a></li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>dev/tips</h1>
+          <p>Development tips&amp;hints</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/btv2018">btv2018</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h2>
+<a name="git" class="anchor" href="#git"><span class="octicon octicon-link"></span></a>Git</h2>
+
+<h3>
+<a name="%D0%90%D0%BB%D0%B8%D0%B0%D1%81%D1%8B" class="anchor" href="#%D0%90%D0%BB%D0%B8%D0%B0%D1%81%D1%8B"><span class="octicon octicon-link"></span></a>Алиасы</h3>
+
+<p>Дабы не писать в консоли <code>git status</code> полностью, а пользоваться сокращениями типа <code>git st</code>. В файле <code>~/.gitconfig</code> добавляем</p>
+
+<div class="highlight highlight-ini"><pre><span class="k">[alias]</span>
+    <span class="na">ci</span> <span class="o">=</span> <span class="s">commit</span>
+<span class="s">    st = status</span>
+<span class="s">    co = checkout</span>
+<span class="s">    df = diff</span>
+<span class="s">    br = branch</span>
+<span class="s">    sh = stash</span>
+</pre></div>
+
+<h3>
+<a name="%D0%A0%D0%B0%D1%81%D0%BA%D1%80%D0%B0%D1%88%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC-%D0%B2%D1%8B%D0%B2%D0%BE%D0%B4-%D0%B2-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%D0%B5" class="anchor" href="#%D0%A0%D0%B0%D1%81%D0%BA%D1%80%D0%B0%D1%88%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC-%D0%B2%D1%8B%D0%B2%D0%BE%D0%B4-%D0%B2-%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB%D0%B5"><span class="octicon octicon-link"></span></a>Раскрашиваем вывод в терминале</h3>
+
+<p>Правим <code>~/.gitconfig</code></p>
+
+<div class="highlight highlight-ini"><pre><span class="k">[color]</span>
+    <span class="na">ui</span> <span class="o">=</span> <span class="s">true</span>
+</pre></div>
+
+<h3>
+<a name="%D0%98%D0%BC%D1%8F-%D0%B2%D0%B5%D1%82%D0%BA%D0%B8-%D0%B2-bash-prompt" class="anchor" href="#%D0%98%D0%BC%D1%8F-%D0%B2%D0%B5%D1%82%D0%BA%D0%B8-%D0%B2-bash-prompt"><span class="octicon octicon-link"></span></a>Имя ветки в bash prompt</h3>
+
+<p>В <code>.bashrc</code> добавляем следующий код.</p>
+
+<div class="highlight highlight-bash"><pre><span class="k">function </span>parse_git_dirty <span class="o">{</span>
+  <span class="o">[[</span> <span class="k">$(</span>git status 2&gt; /dev/null | tail -n1<span class="k">)</span> !<span class="o">=</span> <span class="s2">"nothing to commit, working directory clean"</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"*"</span>
+<span class="o">}</span>
+<span class="k">function </span>parse_git_branch <span class="o">{</span>
+  git branch --no-color 2&gt; /dev/null | sed -e <span class="s1">'/^[^*]/d'</span> -e <span class="s2">"s/* \(.*\)/[\1$(parse_git_dirty)]/"</span>
+<span class="o">}</span>
+<span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s1">'\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\    w\[\033[00m\]\[\033[01;35m\]$(parse_git_branch)\[\033[00m\]\$ '</span>
+</pre></div>
+
+<p>Теперь, если вы находитесь в папке, которая есть репозиторий git, то в <code>bash prompt</code> у вас будет отображаться название текущей ветки и звёздочка, если в репозитории есть незакоммиченные изменения.</p>
+
+<h2>
+<a name="bash-alias" class="anchor" href="#bash-alias"><span class="octicon octicon-link"></span></a>bash alias</h2>
+
+<p>В <code>.bashrc</code> прописываем полезные алиасы для коммандной строки, типа</p>
+
+<div class="highlight highlight-bash"><pre><span class="nb">alias </span>ps?<span class="o">=</span><span class="s2">"ps aux | grep"</span>
+</pre></div>
+
+<h2>
+<a name="ssh" class="anchor" href="#ssh"><span class="octicon octicon-link"></span></a>ssh</h2>
+
+<p>Если надо логиниться на машину с длинным и утомительным названием и, в добавок, под другим пользователем. То можно прописать в <code>~/.ssh/config</code> что-то в духе</p>
+
+<div class="highlight highlight-bash"><pre>Host matching
+    Hostname dev-kitchen-matching
+    user kitchen
+
+Host gate
+    Hostname dev-kitchen-gate
+    user kitchen
+</pre></div>
+
+<p>И тогда в коммандной строке писать <code>ssh ma&lt;TAB&gt;</code> (да, будет работать автокомплит!)</p>
+
+<p>Подробности: #29: A note about ssh alias <a href="http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html">http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html</a></p>
+
+<p>Про логин без пароля по ключикам не рассказываю <a href="http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/">http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/</a></p>
+
+<h2>
+<a name="terminator" class="anchor" href="#terminator"><span class="octicon octicon-link"></span></a>terminator</h2>
+
+<p><strong>Terminator</strong> – эмулятор терминала, который умеет разбивать окно на несколько окон.</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Terminator_(terminal_emulator)">http://en.wikipedia.org/wiki/Terminator_(terminal_emulator)</a></p>
+
+<h2>
+<a name="make" class="anchor" href="#make"><span class="octicon octicon-link"></span></a>make</h2>
+
+<p><code>make</code> принимает опцию <code>-j</code> сколько джоб использовать для сборки проекта. Может существенно ускорить работу.</p>
+
+<p>Разумное значение – количество ядер помножить на два (аргументации особой нет).</p>
+
+<h2>
+<a name="ccache" class="anchor" href="#ccache"><span class="octicon octicon-link"></span></a>ccache</h2>
+
+<p>Полезная утилита, кеширующая результат компиляции. Существенно ускоряет процесс сборки/пересборки проекта.
+<a href="http://ru.wikipedia.org/wiki/Ccache">http://ru.wikipedia.org/wiki/Ccache</a></p>
+
+<h1>
+<a name="jenkins-cli" class="anchor" href="#jenkins-cli"><span class="octicon octicon-link"></span></a>jenkins-cli</h1>
+
+<p>Command Line Interface для '''Jenkins''' continuous integration tool. <a href="https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI">https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI</a></p>
+
+<p>Позволяет запускать таски из терминала, ждать их окончания и прочие ништячки.</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
