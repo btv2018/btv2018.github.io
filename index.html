@@ -90,16 +90,16 @@
 
 <p>Если надо логиниться на машину с длинным и утомительным названием и, в добавок, под другим пользователем. То можно прописать в <code>~/.ssh/config</code> что-то в духе</p>
 
-<div class="highlight highlight-bash"><pre>Host matching
-    Hostname dev-kitchen-matching
-    user kitchen
+<div class="highlight highlight-bash"><pre>Host backend
+    Hostname dev-wiki-backend
+    user wiki
 
-Host gate
-    Hostname dev-kitchen-gate
-    user kitchen
+Host frontend
+    Hostname dev-wiki-frontend
+    user wiki
 </pre></div>
 
-<p>И тогда в коммандной строке писать <code>ssh ma&lt;TAB&gt;</code> (да, будет работать автокомплит!)</p>
+<p>И тогда в коммандной строке писать <code>ssh bac&lt;TAB&gt;</code> (да, будет работать автокомплит!)</p>
 
 <p>Подробности: #29: A note about ssh alias <a href="http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html">http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html</a></p>
 
@@ -125,8 +125,8 @@ Host gate
 <p>Полезная утилита, кеширующая результат компиляции. Существенно ускоряет процесс сборки/пересборки проекта.
 <a href="http://ru.wikipedia.org/wiki/Ccache">http://ru.wikipedia.org/wiki/Ccache</a></p>
 
-<h1>
-<a name="jenkins-cli" class="anchor" href="#jenkins-cli"><span class="octicon octicon-link"></span></a>jenkins-cli</h1>
+<h2>
+<a name="jenkins-cli" class="anchor" href="#jenkins-cli"><span class="octicon octicon-link"></span></a>jenkins-cli</h2>
 
 <p>Command Line Interface для '''Jenkins''' continuous integration tool. <a href="https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI">https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI</a></p>
 
