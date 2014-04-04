@@ -1,40 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>dev/tips by btv2018</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="dev/tips : Development tips&amp;hints" />
 
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>dev/tips</title>
   </head>
+
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/btv2018">View On GitHub</a></li>
-        </nav>
-      </div><!-- end header -->
 
-    <div class="wrapper">
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/btv2018">View on GitHub</a>
 
-      <section>
-        <div id="title">
-          <h1>dev/tips</h1>
-          <p>Development tips&amp;hints</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/btv2018">btv2018</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
+          <h1 id="project_title">dev/tips</h1>
+          <h2 id="project_tagline">Development tips&amp;hints</h2>
 
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h2>
 <a name="git" class="anchor" href="#git"><span class="octicon octicon-link"></span></a>Git</h2>
 
@@ -67,15 +59,15 @@
 <p>В <code>.bashrc</code> добавляем следующий код.</p>
 
 <div class="highlight highlight-bash"><pre><span class="k">function </span>parse_git_dirty <span class="o">{</span>
-  <span class="o">[[</span> <span class="k">$(</span>git status 2&gt; /dev/null | tail -n1<span class="k">)</span> !<span class="o">=</span> <span class="s2">"nothing to commit, working directory clean"</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"*"</span>
+  <span class="o">[[</span> <span class="k">$(</span>git status 2&gt; /dev/null <span class="p">|</span> tail -n1<span class="k">)</span> !<span class="o">=</span> <span class="s2">"nothing to commit, working directory clean"</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"*"</span>
 <span class="o">}</span>
 <span class="k">function </span>parse_git_branch <span class="o">{</span>
-  git branch --no-color 2&gt; /dev/null | sed -e <span class="s1">'/^[^*]/d'</span> -e <span class="s2">"s/* \(.*\)/[\1$(parse_git_dirty)]/"</span>
+  git branch --no-color 2&gt; /dev/null <span class="p">|</span> sed -e <span class="s1">'/^[^*]/d'</span> -e <span class="s2">"s/* \(.*\)/[\1$(parse_git_dirty)]/"</span>
 <span class="o">}</span>
-<span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s1">'\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\    w\[\033[00m\]\[\033[01;35m\]$(parse_git_branch)\[\033[00m\]\$ '</span>
 </pre></div>
 
-<p>Теперь, если вы находитесь в папке, которая есть репозиторий git, то в <code>bash prompt</code> у вас будет отображаться название текущей ветки и звёздочка, если в репозитории есть незакоммиченные изменения.</p>
+<p>И добавть в переменную <code>PS1</code> перед <code>\$</code> вызов функции <code>\[\033[01;35m\]$(parse_git_branch)\[\033[00m\]</code>.
+Теперь, если вы находитесь в папке, которая есть репозиторий git, то в <code>bash prompt</code> у вас будет отображаться название текущей ветки и звёздочка, если в репозитории есть незакоммиченные изменения.</p>
 
 <h2>
 <a name="bash-alias" class="anchor" href="#bash-alias"><span class="octicon octicon-link"></span></a>bash alias</h2>
@@ -138,9 +130,16 @@ Host frontend
 <p><a href="http://www.cplusplus.com/">http://www.cplusplus.com/</a> замечательный сайт с хорошими справочными материалами по <code>STL</code>.
 И с хинтом, если набрать <a href="http://www.cplusplus.com/vector">http://www.cplusplus.com/vector</a> , то вы будете перенаправлены на страницу с документацией. В браузере можно сделать кастомный поиск, указав в настройках <code>http://cplusplus.com/%s</code>, тогда набрав в адресной строке <code>c copy_if</code> будете перенаправлены на страницу с документацией об алгоритме <code>std::copy_if</code>.</p>
       </section>
-
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
     
+
   </body>
 </html>
