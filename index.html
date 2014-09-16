@@ -2,9 +2,9 @@
 <html>
 
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="dev/tips : Development tips&amp;hints" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="dev/tips : Development tips&amp;hints">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -58,10 +58,10 @@
 
 <p>В <code>.bashrc</code> добавляем следующий код.</p>
 
-<div class="highlight highlight-bash"><pre><span class="k">function </span>parse_git_dirty <span class="o">{</span>
+<div class="highlight highlight-bash"><pre><span class="k">function</span> parse_git_dirty <span class="o">{</span>
   <span class="o">[[</span> <span class="k">$(</span>git status 2&gt; /dev/null <span class="p">|</span> tail -n1<span class="k">)</span> !<span class="o">=</span> <span class="s2">"nothing to commit, working directory clean"</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"*"</span>
 <span class="o">}</span>
-<span class="k">function </span>parse_git_branch <span class="o">{</span>
+<span class="k">function</span> parse_git_branch <span class="o">{</span>
   git branch --no-color 2&gt; /dev/null <span class="p">|</span> sed -e <span class="s1">'/^[^*]/d'</span> -e <span class="s2">"s/* \(.*\)/[\1$(parse_git_dirty)]/"</span>
 <span class="o">}</span>
 </pre></div>
